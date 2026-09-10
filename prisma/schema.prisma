@@ -1,0 +1,140 @@
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  admin
+  client
+}
+
+enum GalleryType {
+  slider
+  gallery
+  background
+}
+
+enum RsvpStatus {
+  hadir
+  tidak_hadir
+  ragu_ragu
+}
+
+model User {
+  id          Int          @id @default(autoincrement())
+  username    String       @unique
+  email       String       @unique
+  password    String
+  role        Role         @default(client)
+  invitations Invitation[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("users")
+}
+
+model Theme {
+  id          Int          @id @default(autoincrement())
+  themeName   String       @map("theme_name")
+  folderPath  String       @map("folder_path")
+  thumbnail   String
+  thumbnails  String?      @db.Text @map("thumbnails") // JSON array URL gambar
+  invitations Invitation[]
+
+  @@map("themes")
+}
+
+model Invitation {
+  id             Int            @id @default(autoincrement())
+  userId         Int            @map("user_id")
+  themeId        Int            @map("theme_id")
+  slug           String         @unique
+  isActive       Boolean        @default(true) @map("is_active")
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  theme          Theme          @relation(fields: [themeId], references: [id], onDelete: Restrict)
+  weddingDetail  WeddingDetail?
+  galleries      Gallery[]
+  digitalWallets DigitalWallet[]
+  guestBooks     GuestBook[]
+
+  @@map("invitations")
+}
+
+model WeddingDetail {
+  id                   Int        @id @default(autoincrement())
+  invitationId         Int        @unique @map("invitation_id")
+
+  // Data Pria
+  bridegroomName       String     @map("bridegroom_name")
+  bridegroomShortName  String     @map("bridegroom_short_name")
+  bridegroomParent     String     @map("bridegroom_parent")
+
+  // Data Wanita
+  brideName            String     @map("bride_name")
+  brideShortName       String     @map("bride_short_name")
+  brideParent          String     @map("bride_parent")
+
+  // Akad
+  akadDate             DateTime   @map("akad_date") @db.Date
+  akadTime             String     @map("akad_time")
+  akadLocation         String     @map("akad_location") @db.Text
+  akadMapsUrl          String?    @map("akad_maps_url") @db.Text
+
+  // Resepsi
+  receptionDate        DateTime   @map("reception_date") @db.Date
+  receptionTime        String     @map("reception_time")
+  receptionLocation    String     @map("reception_location") @db.Text
+  receptionMapsUrl     String?    @map("reception_maps_url") @db.Text
+
+  // Tambahan
+  loveStory            String?    @map("love_story") @db.Text
+  liveStreamingUrl     String?    @map("live_streaming_url")
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@map("wedding_details")
+}
+
+model Gallery {
+  id           Int         @id @default(autoincrement())
+  invitationId Int         @map("invitation_id")
+  filePath     String      @map("file_path")
+  type         GalleryType
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@map("galleries")
+}
+
+model DigitalWallet {
+  id            Int    @id @default(autoincrement())
+  invitationId  Int    @map("invitation_id")
+  bankName      String @map("bank_name")
+  accountNumber String @map("account_number")
+  accountOwner  String @map("account_owner")
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@map("digital_wallets")
+}
+
+model GuestBook {
+  id           Int        @id @default(autoincrement())
+  invitationId Int        @map("invitation_id")
+  guestName    String     @map("guest_name")
+  rsvp         RsvpStatus
+  wishes       String     @db.Text
+  createdAt    DateTime   @default(now())
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@map("guest_books")
+}

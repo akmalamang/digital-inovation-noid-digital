@@ -1,0 +1,37 @@
+// middleware.ts
+// Middleware ini berjalan di setiap request SEBELUM halaman dirender
+// Tugasnya: cek apakah user sudah login, dan apakah punya akses ke route tertentu
+
+import { withAuth } from 'next-auth/middleware';
+import { NextResponse } from 'next/server';
+
+export default withAuth(
+  function middleware(req) {
+    const token = req.nextauth.token;
+    const pathname = req.nextUrl.pathname;
+
+    // Proteksi route admin — hanya role "admin" yang boleh masuk
+    if (pathname.startsWith('/admin') && token?.role !== 'admin') {
+      return NextResponse.redirect(new URL('/dashboard', req.url));
+    }
+
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      // Authorized dipanggil lebih dulu — jika false, langsung redirect ke halaman login
+      authorized({ token }) {
+        return !!token; // User harus punya token (sudah login)
+      },
+    },
+  },
+);
+
+// Daftar route yang diproteksi oleh middleware ini
+export const config = {
+  matcher: [
+    '/dashboard/:path*', // Area client
+    '/admin/:path*', // Area admin
+    '/profile/:path*', // Profil user
+  ],
+};
