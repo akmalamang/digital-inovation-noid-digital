@@ -79,7 +79,6 @@ export default function DashboardHeader({ user }: Props) {
         <button
           onClick={() => setDropdownOpen((o) => !o)}
           className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl transition-colors"
-          style={{ hover: 'background: #F4EEFF' }}
           onMouseEnter={(e) => (e.currentTarget.style.background = '#F4EEFF')}
           onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
         >

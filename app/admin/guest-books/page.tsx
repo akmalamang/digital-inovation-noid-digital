@@ -11,7 +11,7 @@ type GuestBook = {
   guestName: string;
   rsvp: 'hadir' | 'tidak_hadir' | 'ragu_ragu';
   wishes: string;
-  createdAt: string;
+  createdAt: Date;
   invitation: {
     slug: string;
     weddingDetail: { bridegroomShortName: string; brideShortName: string } | null;

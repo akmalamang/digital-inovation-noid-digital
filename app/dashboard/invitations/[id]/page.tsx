@@ -26,11 +26,11 @@ type WeddingDetail = {
   brideName: string;
   brideShortName: string;
   brideParent: string;
-  akadDate: string;
+  akadDate: Date;
   akadTime: string;
   akadLocation: string;
   akadMapsUrl: string;
-  receptionDate: string;
+  receptionDate: Date;
   receptionTime: string;
   receptionLocation: string;
   receptionMapsUrl: string;

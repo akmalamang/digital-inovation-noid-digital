@@ -23,7 +23,23 @@ type WeddingForm = {
 
 type WeddingDetail = {
   id: number;
-} & WeddingForm;
+  bridegroomName: string;
+  bridegroomShortName: string;
+  bridegroomParent: string;
+  brideName: string;
+  brideShortName: string;
+  brideParent: string;
+  akadDate: Date;
+  akadTime: string;
+  akadLocation: string;
+  akadMapsUrl: string;
+  receptionDate: Date;
+  receptionTime: string;
+  receptionLocation: string;
+  receptionMapsUrl: string;
+  loveStory: string;
+  liveStreamingUrl: string;
+};
 
 type Invitation = {
   id: number;
@@ -41,11 +57,15 @@ export default function TabDetail({ inv, onRefresh }: { inv: Invitation; onRefre
     brideName: d?.brideName ?? '',
     brideShortName: d?.brideShortName ?? '',
     brideParent: d?.brideParent ?? '',
-    akadDate: d?.akadDate?.slice(0, 10) ?? '',
+
+    akadDate: d?.akadDate ? new Date(d.akadDate).toISOString().slice(0, 10) : '',
+
     akadTime: d?.akadTime?.slice(0, 5) ?? '',
     akadLocation: d?.akadLocation ?? '',
     akadMapsUrl: d?.akadMapsUrl ?? '',
-    receptionDate: d?.receptionDate?.slice(0, 10) ?? '',
+
+    receptionDate: d?.receptionDate ? new Date(d.receptionDate).toISOString().slice(0, 10) : '',
+
     receptionTime: d?.receptionTime?.slice(0, 5) ?? '',
     receptionLocation: d?.receptionLocation ?? '',
     receptionMapsUrl: d?.receptionMapsUrl ?? '',

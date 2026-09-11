@@ -143,7 +143,7 @@ export default function AnalyticsPage() {
                       <Cell key={index} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value: number, name: string) => [value, name]} />
+                  <Tooltip formatter={(value, name) => [value ?? 0, name]} />
                 </PieChart>
               </ResponsiveContainer>
 

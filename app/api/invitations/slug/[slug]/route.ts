@@ -6,11 +6,12 @@ import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ok, error } from '@/lib/response';
 
-type Params = { params: { slug: string } };
+type Params = { params: Promise<{ slug: string }> };
 
 export async function GET(_: NextRequest, { params }: Params) {
+  const { slug } = await params;
   const invitation = await prisma.invitation.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
     include: {
       theme: true, // Untuk tahu folder template mana yang dirender
       weddingDetail: true, // Data pernikahan lengkap
