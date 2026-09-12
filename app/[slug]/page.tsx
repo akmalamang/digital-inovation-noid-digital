@@ -6,6 +6,8 @@ import { notFound } from 'next/navigation';
 import WeddingTemplate from './Weddingtemplate';
 import FloralPinkTemplate from './themes/FloralPinkTemplate';
 import FloralGreenTemplate from './themes/FloralGreenTemplate';
+import LavenderTemplate from './themes/Lavendertemplate';
+import RoyalTemplate from './themes/Royaltemplate';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -52,6 +54,13 @@ export default async function InvitationPage({ params }: Props) {
   }
   if (invitation.themeId === 3) {
     return <FloralGreenTemplate invitation={invitation} />;
+  }
+
+  if (invitation.themeId === 4) {
+    return <LavenderTemplate invitation={invitation} />;
+  }
+  if (invitation.themeId === 5) {
+    return <RoyalTemplate invitation={invitation} />;
   }
 
   // Default: tema 1
