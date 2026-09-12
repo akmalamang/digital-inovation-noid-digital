@@ -384,7 +384,7 @@ function LvCountdown({ detail }: { detail: WeddingDetail }) {
 
 // ── Events ─────────────────────────────────────────────────────────────────────
 function LvEvents({ detail }: { detail: WeddingDetail }) {
-  const fmt = (d: string) =>
+  const fmt = (d: Date) =>
     new Date(d).toLocaleDateString('id-ID', {
       weekday: 'long',
       day: 'numeric',

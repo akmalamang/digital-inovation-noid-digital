@@ -440,7 +440,7 @@ function RkCountdown({ detail, bgPhoto }: { detail: WeddingDetail; bgPhoto?: str
 
 // ── Events ─────────────────────────────────────────────────────────────────────
 function RkEvents({ detail }: { detail: WeddingDetail }) {
-  const fmt = (d: string) =>
+  const fmt = (d: Date) =>
     new Date(d).toLocaleDateString('id-ID', {
       weekday: 'long',
       day: 'numeric',
