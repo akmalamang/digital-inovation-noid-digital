@@ -6,6 +6,7 @@ import { getSession } from '@/lib/session';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
+import { PRICING_STYLES, PricingSection } from './PricingSection';
 
 // ── Path aset bunga — letakkan file di public/landing/ ───────────────────────
 // Ganti dengan file gambar bunga kamu
@@ -186,6 +187,8 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+
+      <PricingSection />
 
       {/* ── CTA Bottom ── */}
       <section className="cta-bottom">
@@ -460,6 +463,10 @@ export default async function HomePage() {
           color: rgba(255,255,255,0.3); font-size: 0.8rem;
         }
 
+
+        /* pricing style 
+        ${PRICING_STYLES}
+
         /* ── Responsive ── */
         @media (max-width: 768px) {
           .landing-nav { padding: 1rem 1.5rem; }
@@ -469,6 +476,13 @@ export default async function HomePage() {
           .how { padding: 4rem 1.5rem; }
           .steps { gap: 2rem; }
           .cta-flower { width: 110px; height: 110px; }
+          .btn-primary {font-size: .7rem}
+          .nav-brand {font-size : 1rem}
+          btn-ghost { font-size : 1rem }
+        }
+
+        @media (max-width: 380px){
+        .btn-primary {font-size: .5rem; padding: 0.5rem}
         }
       `}</style>
     </main>
