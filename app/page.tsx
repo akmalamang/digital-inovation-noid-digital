@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import { PRICING_STYLES, PricingSection } from './PricingSection';
+import ThemeGallery from './ThemeGallery';
 
 // ── Path aset bunga — letakkan file di public/landing/ ───────────────────────
 // Ganti dengan file gambar bunga kamu
@@ -127,7 +128,7 @@ export default async function HomePage() {
             Sesuai Gaya Pernikahanmu
           </h2>
 
-          <div className="themes-grid">
+          {/* <div className="themes-grid">
             {themes.map((theme) => {
               const images: string[] = (theme as any).thumbnails ? JSON.parse((theme as any).thumbnails) : theme.thumbnail ? [theme.thumbnail] : [];
 
@@ -154,7 +155,9 @@ export default async function HomePage() {
                 </div>
               );
             })}
-          </div>
+          </div> */}
+
+          <ThemeGallery themes={themes} />
 
           <div style={{ textAlign: 'center', marginTop: '3rem' }}>
             <Link href="/auth/register" className="btn-primary btn-lg">
@@ -390,25 +393,8 @@ export default async function HomePage() {
           display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
           gap: 1.5rem; max-width: 1100px; margin: 0 auto;
         }
-        .theme-card {
-          background: var(--white); border-radius: 20px; overflow: hidden;
-          border: 1px solid var(--lv-light);
-          transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-        }
-        .theme-card:hover {
-          border-color: var(--lv-mid);
-          box-shadow: 0 12px 32px rgba(166,177,225,0.2);
-          transform: translateY(-4px);
-        }
-        .theme-card-img-wrap { position: relative; height: 200px; overflow: hidden; background: var(--lv-light); }
-        .theme-card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .theme-card:hover .theme-card-img { transform: scale(1.08); }
-        .theme-card-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--lv-mid); }
-        .theme-card-overlay {
-          position: absolute; inset: 0; background: rgba(61,44,110,0);
-          display: flex; align-items: center; justify-content: center;
-          transition: background 0.3s;
-        }
+       
+        
         .theme-card:hover .theme-card-overlay { background: rgba(61,44,110,0.35); }
         .theme-card-overlay-text {
           color: white; font-size: 0.9rem; font-weight: 600;
