@@ -318,16 +318,285 @@ export default async function HomePage() {
         .hero-flower--tl { top: 0; left: 0; }
         .hero-flower--tr { top: 0; right: 0; transform: scaleX(-1); }
 
-        /* Orbs dekoratif */
-        .hero-orb {
-          position: absolute; border-radius: 50%;
-          background: rgba(166,177,225,0.15);
-          pointer-events: none;
-        }
-        .hero-orb-1 { width: 400px; height: 400px; top: -100px; left: -100px; }
-        .hero-orb-2 { width: 300px; height: 300px; bottom: -80px; right: -80px; }
-        .hero-orb-3 { width: 200px; height: 200px; top: 30%; left: 50%; transform: translateX(-50%); background: rgba(220,214,247,0.2); }
+        /* ========================================
+   HERO 3D ORBS
+======================================== */
 
+.hero {
+  position: relative;
+  overflow: hidden;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* Base orb */
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+
+  transform-style: preserve-3d;
+
+  filter: blur(1px);
+
+  will-change: transform;
+
+  mix-blend-mode: screen;
+}
+
+/* ========================================
+   ORB 1
+======================================== */
+
+.hero-orb-1 {
+  width: 280px;
+  height: 280px;
+
+  top: 10%;
+  left: -80px;
+
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.7),
+      rgba(166, 177, 225, 0.35) 35%,
+      rgba(166, 177, 225, 0.12) 60%,
+      transparent 75%
+    );
+
+  box-shadow:
+    0 0 80px rgba(166, 177, 225, 0.25),
+    inset -20px -20px 50px rgba(66, 72, 116, 0.15);
+
+  animation: orb3DOne 12s ease-in-out infinite;
+}
+
+
+/* ========================================
+   ORB 2
+======================================== */
+
+.hero-orb-2 {
+  width: 180px;
+  height: 180px;
+
+  top: 55%;
+  right: -40px;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      rgba(255, 255, 255, 0.65),
+      rgba(210, 214, 238, 0.3) 40%,
+      rgba(166, 177, 225, 0.12) 65%,
+      transparent 75%
+    );
+
+  box-shadow:
+    0 0 70px rgba(166, 177, 225, 0.2),
+    inset -15px -15px 40px rgba(66, 72, 116, 0.12);
+
+  animation: orb3DTwo 15s ease-in-out infinite;
+}
+
+
+/* ========================================
+   ORB 3
+======================================== */
+
+.hero-orb-3 {
+  width: 110px;
+  height: 110px;
+
+  bottom: 10%;
+  left: 15%;
+
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(255, 255, 255, 0.8),
+      rgba(166, 177, 225, 0.25) 45%,
+      transparent 75%
+    );
+
+  box-shadow:
+    0 0 50px rgba(166, 177, 225, 0.18);
+
+  animation: orb3DThree 10s ease-in-out infinite;
+}
+
+/* ========================================
+   3D FLOAT ANIMATIONS
+======================================== */
+
+@keyframes orb3DOne {
+
+  0% {
+    transform:
+      translate3d(0, 0, 0)
+      rotateX(0deg)
+      rotateY(0deg)
+      rotateZ(0deg)
+      scale(1);
+  }
+
+  25% {
+    transform:
+      translate3d(45px, -35px, 80px)
+      rotateX(15deg)
+      rotateY(25deg)
+      rotateZ(8deg)
+      scale(1.08);
+  }
+
+  50% {
+    transform:
+      translate3d(90px, 20px, 140px)
+      rotateX(-10deg)
+      rotateY(45deg)
+      rotateZ(15deg)
+      scale(0.95);
+  }
+
+  75% {
+    transform:
+      translate3d(30px, 55px, 70px)
+      rotateX(20deg)
+      rotateY(20deg)
+      rotateZ(-8deg)
+      scale(1.05);
+  }
+
+  100% {
+    transform:
+      translate3d(0, 0, 0)
+      rotateX(0deg)
+      rotateY(0deg)
+      rotateZ(0deg)
+      scale(1);
+  }
+}
+
+
+@keyframes orb3DTwo {
+
+  0% {
+    transform:
+      translate3d(0, 0, 0)
+      rotateX(0deg)
+      rotateY(0deg)
+      scale(1);
+  }
+
+  25% {
+    transform:
+      translate3d(-40px, 30px, 100px)
+      rotateX(-20deg)
+      rotateY(30deg)
+      scale(1.12);
+  }
+
+  50% {
+    transform:
+      translate3d(-80px, -20px, 160px)
+      rotateX(15deg)
+      rotateY(-30deg)
+      scale(0.92);
+  }
+
+  75% {
+    transform:
+      translate3d(-25px, -55px, 90px)
+      rotateX(-10deg)
+      rotateY(-15deg)
+      scale(1.05);
+  }
+
+  100% {
+    transform:
+      translate3d(0, 0, 0)
+      rotateX(0deg)
+      rotateY(0deg)
+      scale(1);
+  }
+}
+
+
+@keyframes orb3DThree {
+
+  0% {
+    transform:
+      translate3d(0, 0, 0)
+      rotate(0deg)
+      scale(1);
+  }
+
+  25% {
+    transform:
+      translate3d(35px, -25px, 50px)
+      rotate(45deg)
+      scale(1.12);
+  }
+
+  50% {
+    transform:
+      translate3d(70px, 10px, 100px)
+      rotate(90deg)
+      scale(0.9);
+  }
+
+  75% {
+    transform:
+      translate3d(20px, 35px, 50px)
+      rotate(135deg)
+      scale(1.08);
+  }
+
+  100% {
+    transform:
+      translate3d(0, 0, 0)
+      rotate(180deg)
+      scale(1);
+  }
+}
+
+.hero-orb::before {
+  content: "";
+  position: absolute;
+
+  width: 45%;
+  height: 45%;
+
+  top: 12%;
+  left: 18%;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.35);
+
+  filter: blur(18px);
+
+  transform: translateZ(30px);
+}
+
+.hero-orb::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 10%;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  transform: translateZ(20px);
+}
+
+
+
+       
         .hero-content { position: relative; z-index: 3; max-width: 680px; }
         .hero-eyebrow {
           font-size: 0.78rem; font-weight: 500; letter-spacing: 0.18em;

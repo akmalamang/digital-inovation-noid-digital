@@ -176,7 +176,26 @@ export default function ThemesPage() {
   async function fetchThemes() {
     try {
       const res = await fetch('/api/themes');
-      const data = await res.json();
+      // const data = await res.json();
+
+      const text = await res.text();
+
+      let data: any = {};
+
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch {
+          data = {
+            message: text,
+          };
+        }
+      }
+
+      if (!res.ok) {
+        setError(data.message ?? `Gagal menyimpan tema (${res.status})`);
+        return;
+      }
 
       setThemes(data.data ?? []);
     } catch {
@@ -328,10 +347,22 @@ export default function ThemesPage() {
         body: formData,
       });
 
-      const data = await res.json();
+      const text = await res.text();
+
+      let data: any = {};
+
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch {
+          data = {
+            message: text,
+          };
+        }
+      }
 
       if (!res.ok) {
-        setError(data.message ?? 'Gagal menyimpan tema');
+        setError(data.message ?? `Gagal menyimpan tema (${res.status})`);
         return;
       }
 
