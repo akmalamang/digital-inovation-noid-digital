@@ -70,11 +70,11 @@ export default async function InvitationPage({ params }: Props) {
   // Serialize semua Date ke string
   const invitation = serializeInvitation(raw);
 
-  if (invitation.themeId === 2) return <FloralPinkTemplate invitation={invitation} />;
-  if (invitation.themeId === 3) return <FloralGreenTemplate invitation={invitation} />;
-  if (invitation.themeId === 4) return <LavenderTemplate invitation={invitation} />;
-  if (invitation.themeId === 5) return <RoyalTemplate invitation={invitation} />;
-  if (invitation.themeId === 6) return <RetroTemplate invitation={invitation} />;
+  if (invitation.themeId === 2) return <FloralPinkTemplate invitation={invitation as any} />;
+  if (invitation.themeId === 3) return <FloralGreenTemplate invitation={invitation as any} />;
+  if (invitation.themeId === 4) return <LavenderTemplate invitation={invitation as any} />;
+  if (invitation.themeId === 5) return <RoyalTemplate invitation={invitation as any} />;
+  if (invitation.themeId === 6) return <RetroTemplate invitation={invitation as any} />;
 
-  return <WeddingTemplate invitation={invitation} />;
+  return <WeddingTemplate invitation={invitation as any} />;
 }

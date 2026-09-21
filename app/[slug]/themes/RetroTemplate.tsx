@@ -481,7 +481,7 @@ function RtCountdown({ detail }: { detail: WeddingDetail }) {
 
 // ── Events ─────────────────────────────────────────────────────────────────────
 function RtEvents({ detail }: { detail: WeddingDetail }) {
-  const fmt = (d: string) =>
+  const fmt = (d: string | Date) =>
     new Date(d)
       .toLocaleDateString('id-ID', {
         weekday: 'long',
