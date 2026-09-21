@@ -17,11 +17,11 @@ type WeddingDetail = {
   brideName: string;
   brideShortName: string;
   brideParent: string;
-  akadDate: string;
+  akadDate: Date;
   akadTime: string;
   akadLocation: string;
   akadMapsUrl?: string | null;
-  receptionDate: string;
+  receptionDate: Date;
   receptionTime: string;
   receptionLocation: string;
   receptionMapsUrl?: string | null;
@@ -30,7 +30,7 @@ type WeddingDetail = {
 };
 type Gallery = { id: number; filePath: string; type: string };
 type Wallet = { id: number; bankName: string; accountNumber: string; accountOwner: string };
-type GuestBook = { id: number; guestName: string; rsvp: string; wishes: string; createdAt: string };
+type GuestBook = { id: number; guestName: string; rsvp: string; wishes: string; createdAt: Date };
 type Invitation = {
   id: number;
   slug: string;
