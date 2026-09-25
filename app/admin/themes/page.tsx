@@ -322,6 +322,9 @@ export default function ThemesPage() {
     setError('');
     setSaving(true);
 
+    console.log('selectedFiles:', selectedFiles);
+    console.log('form:', form);
+
     try {
       const formData = new FormData();
 
