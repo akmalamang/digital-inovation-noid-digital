@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { uploadToCloudinary } from '@/lib/uploadToCloudinary';
 
 type MediaItem = {
   url: string;
@@ -318,51 +319,38 @@ export default function ThemesPage() {
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
-
     setError('');
     setSaving(true);
 
-    console.log('selectedFiles:', selectedFiles);
-    console.log('form:', form);
-
     try {
-      const formData = new FormData();
+      // Upload semua file langsung ke Cloudinary dari browser
+      const uploadedUrls: string[] = [];
 
-      formData.append('themeName', form.themeName);
-      formData.append('folderPath', form.folderPath);
+      for (const item of selectedFiles) {
+        const url = await uploadToCloudinary(item.file);
+        uploadedUrls.push(url);
+      }
 
-      // Existing media yang masih dipertahankan
-      formData.append('existingMedia', JSON.stringify(existingMedia));
+      // Gabung dengan existing media
+      const allUrls = [...existingMedia.map((m: any) => m.url ?? m), ...uploadedUrls];
 
-      // File baru
-      selectedFiles.forEach((item) => {
-        formData.append('files', item.file);
-      });
-
+      // Kirim hanya URL (JSON) ke API — tidak ada file, tidak ada 413
       const isEdit = !!editTarget;
-
       const url = isEdit ? `/api/themes/${editTarget!.id}` : '/api/themes';
-
       const method = isEdit ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
         method,
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          themeName: form.themeName,
+          folderPath: form.folderPath,
+          thumbnail: allUrls[0] ?? '',
+          thumbnails: JSON.stringify(allUrls),
+        }),
       });
 
-      const text = await res.text();
-
-      let data: any = {};
-
-      if (text) {
-        try {
-          data = JSON.parse(text);
-        } catch {
-          data = {
-            message: text,
-          };
-        }
-      }
+      const data = await res.json();
 
       if (!res.ok) {
         setError(data.message ?? `Gagal menyimpan tema (${res.status})`);
